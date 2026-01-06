@@ -1,0 +1,8 @@
+[submodule "shared"]
+	path = shared
+	url = https://devopsrc.vuthao.com/SourceCode/DPM.Platform/_git/DPM.UI.Shared
+	branch = haipt
+[submodule "shared-lib"]
+	path = shared-lib
+	url = https://devopsrc.vuthao.com/SourceCode/DPM.Platform/_git/DPM.UI.Shared
+	branch = haipt
