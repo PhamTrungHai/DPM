@@ -1,0 +1,58 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "root",
+    },
+    {
+      "path": "app",
+      "name": "DPM UI",
+    },
+    {
+      "path": "shared-lib",
+      "name": "Shared Lib",
+    },
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+    ],
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
+    "editor.tabSize": 4,
+    "vs-code-prettier-eslint.prettierLast": true,
+    "editor.quickSuggestions": {
+      "strings": true,
+    },
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/.turbo": true,
+      "**/dist": true,
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true,
+    },
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/node_modules/*/**": true,
+      "**/.hg/store/**": true,
+      "**/dist": true,
+    },
+    "[shellscript]": {
+      "editor.defaultFormatter": "shakram02.bash-beautify",
+    },
+  },
+  "extensions": {
+    "recommendations": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"],
+  },
+}
