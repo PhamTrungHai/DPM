@@ -6,6 +6,7 @@ export default function Header() {
     return (
         <header>
             <TranslationText
+                className=""
                 as={'h1'}
                 i18nKey={'welcome'}
             />

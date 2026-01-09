@@ -1,26 +1,20 @@
-import { NavLink } from 'react-router-dom';
+import { AppBar, Toolbar, Typography } from '@mui/material';
+import { FC } from 'react';
+import AccountMenu from '@/components/AccountMenu';
 
-export default function Navbar() {
-    return (
-        <nav className="flex items-center justify-between h-14 px-4 border-b bg-white">
-            {/* Left */}
-            <div className="flex items-center gap-3">
-                <span className="text-lg font-semibold">MyApp</span>
-            </div>
+interface NavbarProps {}
 
-            {/* Right */}
-            <div className="flex items-center gap-4">
-                <NavLink
-                    to="/profile"
-                    className={({ isActive }) =>
-                        isActive ? 'text-blue-600 font-medium' : 'text-gray-600 hover:text-gray-900'
-                    }
-                >
-                    Profile
-                </NavLink>
+const Navbar: FC<NavbarProps> = ({}) => (
+    <AppBar
+        position="fixed"
+        className="grow"
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    >
+        <Toolbar className="flex justify-between">
+            <Typography variant="h6">Dashboard</Typography>
+            <AccountMenu />
+        </Toolbar>
+    </AppBar>
+);
 
-                <button className="text-sm text-gray-600 hover:text-gray-900">Logout</button>
-            </div>
-        </nav>
-    );
-}
+export default Navbar;

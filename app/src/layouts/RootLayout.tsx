@@ -1,13 +1,20 @@
 import { Outlet } from 'react-router-dom';
-import Header from './components/Header';
+import Sidebar from './components/Sidebar';
+import Navbar from './components/Navbar';
 
-export default function RootLayout() {
+interface RootLayoutProps {}
+const drawerWidth = 240;
+export default function RootLayout({}: RootLayoutProps) {
     return (
-        <>
-            <Header />
-            <main>
-                <Outlet />
-            </main>
-        </>
+        <div className="flex min-h-screen w-full bg-gray-50 dark:bg-gray-900">
+            <Navbar />
+
+            <div className="flex flex-row mt-16 flex-1">
+                <Sidebar drawerWidth={drawerWidth} />
+                <main className="flex-1 h-full mt-16 p-6">
+                    <Outlet />
+                </main>
+            </div>
+        </div>
     );
 }
