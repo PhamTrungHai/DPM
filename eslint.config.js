@@ -16,9 +16,5 @@ export default defineConfig([
     plugins: {
       onlyWarn
     }
-  },{
-    plugins: {
-      onlyWarn
-    }
   }
 ])
