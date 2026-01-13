@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import React from 'react';
-import { Counter } from 'dpm-shared/counter';
+import { Counter } from 'dpm-shared/components';
 import './App.css';
 
 function App() {

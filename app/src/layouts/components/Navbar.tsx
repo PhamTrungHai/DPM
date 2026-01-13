@@ -2,7 +2,7 @@ import { AppBar, Toolbar, Typography } from '@mui/material';
 import { FC } from 'react';
 import AccountMenu from '@/components/AccountMenu';
 
-interface NavbarProps {}
+type NavbarProps = {} & React.HTMLAttributes<HTMLElement>;
 
 const Navbar: FC<NavbarProps> = ({}) => (
     <AppBar

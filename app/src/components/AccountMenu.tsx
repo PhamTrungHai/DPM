@@ -18,7 +18,9 @@ import { useAppDispatch, useAppSelector } from '@/store/configureStore';
 import { selectAppSetting } from '@/store/AppSetting/selector';
 import { toggleLanguage, toggleMode } from '@/store/AppSetting/reducer';
 
-type AccountMenuProps = {};
+type AccountMenuProps = {
+    items?: unknown[];
+} & React.HTMLAttributes<HTMLElement>;
 export default function AccountMenu(props: AccountMenuProps) {
     const dispatch = useAppDispatch();
     const { mode, language } = useAppSelector(selectAppSetting);

@@ -11,15 +11,15 @@ import {
 } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { FC, useState } from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
-interface SidebarProps {
+type SidebarProps = {
     drawerWidth: number;
-}
+} & React.HTMLAttributes<HTMLElement>;
 
 const DrawerCollapseWidth = 56;
 const DrawerFooter = styled('div')(({ theme }) => ({

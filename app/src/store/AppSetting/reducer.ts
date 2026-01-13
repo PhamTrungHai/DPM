@@ -1,5 +1,6 @@
 import { PaletteMode } from '@mui/material';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import i18n from 'dpm-shared/i18n';
 
 type AppSetting = {
     tenantId: string;
@@ -29,12 +30,16 @@ const slice = createSlice({
     name: 'AppSetting',
     initialState: initialAppSettingState,
     reducers: {
+        loadInit() {
+            i18n.changeLanguage(savedLanguage);
+        },
         toggleMode: (state, action: PayloadAction<PaletteMode>) => {
             state.setting.mode = action.payload;
             localStorage.setItem('theme', action.payload);
         },
         toggleLanguage: (state, action: PayloadAction<string>) => {
             state.setting.language = action.payload;
+            i18n.changeLanguage(action.payload);
             localStorage.setItem('language', action.payload);
         },
     },
@@ -42,6 +47,6 @@ const slice = createSlice({
 
 const { reducer } = slice;
 
-export const { toggleMode, toggleLanguage } = slice.actions;
+export const { toggleMode, toggleLanguage, loadInit } = slice.actions;
 
 export default reducer;

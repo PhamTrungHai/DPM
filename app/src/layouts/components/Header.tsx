@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import TranslationText from '@/components/TranslationText';
+import { TranslationText } from 'dpm-shared/components';
 
 export default function Header() {
     const { i18n } = useTranslation();

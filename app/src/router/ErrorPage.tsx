@@ -1,20 +1,10 @@
-import TranslationText from '@/components/TranslationText';
+import { TranslationText } from 'dpm-shared/components';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
 export default function ErrorPage() {
     const error = useRouteError();
     const isRouteError = isRouteErrorResponse(error);
     const errorkey = isRouteError ? `${error.status}` : '500';
-
-    let title = 'Something went wrong';
-    let message = 'An unexpected error occurred.';
-
-    if (isRouteError) {
-        title = `Error ${error.status}`;
-        message = error.statusText || message;
-    } else if (error instanceof Error) {
-        message = error.message;
-    }
 
     return (
         <main
@@ -26,13 +16,13 @@ export default function ErrorPage() {
                 as={'h1'}
                 namespace={'error'}
                 i18nKey={`title`}
-                prefix={isRouteError ? `${error.status}` : '500'}
+                prefix={errorkey}
             />
             <TranslationText
                 as={'p'}
                 namespace={'error'}
                 i18nKey={'message'}
-                prefix={isRouteError ? `${error.status}` : '500'}
+                prefix={errorkey}
             />
             <button onClick={() => window.location.reload()}>
                 <TranslationText i18nKey={'reload'} />

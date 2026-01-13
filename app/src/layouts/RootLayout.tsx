@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 
-interface RootLayoutProps {}
+type RootLayoutProps = {} & React.HTMLAttributes<HTMLElement>;
 const drawerWidth = 240;
 export default function RootLayout({}: RootLayoutProps) {
     return (

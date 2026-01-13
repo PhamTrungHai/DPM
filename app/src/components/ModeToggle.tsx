@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/store/configureStore';
 import { selectAppSetting } from '@/store/AppSetting/selector';
 import { toggleMode } from '@/store/AppSetting/reducer';
 
-type ModeToggleProps = {};
+type ModeToggleProps = {} & React.HTMLAttributes<HTMLElement>;
 
 const ModeToggle = (props: ModeToggleProps) => {
     const dispatch = useAppDispatch();
