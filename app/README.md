@@ -225,6 +225,113 @@ For automated deployments, configure your CI/CD pipeline to:
 - Write clear, concise component names and props
 - Use meaningful variable and function names
 
+## Security
+
+### Authentication & Token Storage
+
+This application uses JWT tokens for authentication. Tokens are stored in `localStorage` via [`src/utils/tokenStorage.ts`](src/utils/tokenStorage.ts).
+
+**⚠️ Security Considerations:**
+
+1. **XSS Vulnerability**: `localStorage` is accessible to JavaScript and vulnerable to XSS attacks
+   - Sanitize all user inputs
+   - Use Content Security Policy (CSP) headers
+   - Consider migrating to **httpOnly cookies** for production
+
+2. **Token Management**:
+   - Access tokens are automatically attached to requests via Axios interceptors
+   - Refresh token flow is handled in [`src/api/interceptors/response.refreshToken.ts`](src/api/interceptors/response.refreshToken.ts)
+   - Tokens are cleared on logout via `tokenStorage.clear()`
+
+3. **Enhanced Storage Options**:
+   
+   The app now supports **two storage strategies** via `VITE_USE_MEMORY_STORAGE` environment variable:
+
+   **Option A: Memory-Only Storage (Most Secure)**
+   ```env
+   VITE_USE_MEMORY_STORAGE=true
+   ```
+   - Tokens stored only in memory (never persisted)
+   - Immune to XSS attacks targeting localStorage
+   - Requires re-authentication on page refresh
+   - **Recommended for high-security applications**
+
+   **Option B: Enhanced localStorage (Default)**
+   ```env
+   VITE_USE_MEMORY_STORAGE=false
+   ```
+   - Tokens persist across page refreshes
+   - Includes tampering detection via checksum
+   - Prefixed keys for namespace isolation
+   - Better than plain localStorage, but still vulnerable to XSS
+
+4. **Migration Path to httpOnly Cookies** (Ultimate Security):
+   
+   For production environments, consider migrating to httpOnly cookies:
+   ```typescript
+   // Backend: Set tokens via Set-Cookie header
+   res.cookie('access_token', token, {
+     httpOnly: true,        // No JavaScript access (XSS protection)
+     secure: true,          // HTTPS only
+     sameSite: 'strict',    // CSRF protection
+     maxAge: 15 * 60 * 1000 // 15 minutes
+   });
+   ```
+   
+   Benefits:
+   - Complete XSS immunity (cookies not accessible to JavaScript)
+   - CSRF protection with SameSite attribute
+   - Automatic cookie transmission with requests
+   - No frontend storage code needed
+
+### CORS Configuration
+
+Ensure your backend API is configured with appropriate CORS headers:
+
+```javascript
+// Example backend configuration
+Access-Control-Allow-Origin: https://yourdomain.com
+Access-Control-Allow-Credentials: true  // Required for cookies
+Access-Control-Allow-Headers: Authorization, Content-Type
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+```
+
+**Note**: When using httpOnly cookies, set `credentials: 'include'` in Axios:
+```typescript
+const axiosClient = axios.create({
+  baseURL: API_URL,
+  withCredentials: true,  // Enable cookie transmission
+});
+```
+
+### Environment Variables
+
+- **Never commit `.env` files** - they're gitignored
+- Use `.env.example` as a template
+- Validate required variables at build time (see [`src/api/axiosClient.ts`](src/api/axiosClient.ts))
+- **New**: Configure `VITE_USE_MEMORY_STORAGE` for security posture
+
+### Content Security Policy
+
+Recommended CSP headers for production:
+
+```
+Content-Security-Policy: default-src 'self'; 
+  script-src 'self'; 
+  style-src 'self' 'unsafe-inline'; 
+  img-src 'self' data: https:; 
+  connect-src 'self' https://yourdomain.com;
+  frame-ancestors 'none';
+```
+
+Additional security headers:
+```
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+```
+
 ### Component Development Guidelines
 
 - Keep components small and focused on single responsibilities
