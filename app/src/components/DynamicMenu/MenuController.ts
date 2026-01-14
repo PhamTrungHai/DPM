@@ -1,4 +1,4 @@
-import { BaseApi } from 'dpm-shared/api';
+import * as BaseApi from 'dpm-shared/api';
 import { Identifiable } from 'dpm-shared/types';
 
 type Menu = {
@@ -8,23 +8,20 @@ type Menu = {
     refUrl: string;
 } & Identifiable;
 
-export class MenuController extends BaseApi<Menu> {
-    constructor(signal: AbortSignal) {
-        super('/menu', 1, signal);
-    }
+export class MenuController {
     async getAll(params?: Record<string, unknown>): Promise<Menu> {
-        return this.get<Menu>('/', params);
+        return BaseApi.get<Menu>('/menu', params);
     }
     async getOne(id: Menu['id']): Promise<Menu> {
-        return this.get<Menu>(`/${id}`);
+        return BaseApi.get<Menu>(`/menu/${id}`);
     }
     async createOne(data: Omit<Menu, 'id'>): Promise<Menu> {
-        return this.post<Menu, Omit<Menu, 'id'>>('/', data);
+        return BaseApi.post<Menu, Omit<Menu, 'id'>>('/menu', data);
     }
     async updateOne(id: Menu['id'], data: Partial<Omit<Menu, 'id'>>): Promise<Menu> {
-        return this.put<Menu, Partial<Omit<Menu, 'id'>>>(`/${id}`, data);
+        return BaseApi.put<Menu, Partial<Omit<Menu, 'id'>>>(`/menu/${id}`, data);
     }
     async deleteOne(id: Menu['id']): Promise<void> {
-        return this.delete<void>(`/${id}`);
+        return BaseApi.del<void>(`/menu/${id}`);
     }
 }

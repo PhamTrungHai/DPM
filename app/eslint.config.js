@@ -6,7 +6,6 @@ import eslintPrettier from 'eslint-plugin-prettier'
 import eslintTurbo from 'eslint-plugin-turbo'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import reactQuery from '@tanstack/eslint-plugin-query'
-import onlyWarn from "eslint-plugin-only-warn";
 import tseslint, { parser } from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
@@ -21,7 +20,6 @@ export default defineConfig([
       eslintImport,
       eslintPrettier,
       eslintTurbo,
-      onlyWarn
     },
     extends: [
       js.configs.recommended,

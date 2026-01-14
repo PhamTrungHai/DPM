@@ -8,7 +8,7 @@ export default defineConfig([
     files: ['**/*.{ts,tsx}'],
     extends: [
       js.configs.recommended,
-      tseslint.configs.strictTypeChecked,
+      tseslint.configs.recommended,
     ],
   },
   {

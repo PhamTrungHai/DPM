@@ -1,6 +1,3 @@
-import { IconButton } from '@mui/material';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import LightModeIcon from '@mui/icons-material/LightMode';
 import { useAppDispatch, useAppSelector } from '@/store/configureStore';
 import { selectAppSetting } from '@/store/AppSetting/selector';
 import { toggleMode } from '@/store/AppSetting/reducer';
@@ -11,16 +8,14 @@ const ModeToggle = (props: ModeToggleProps) => {
     const dispatch = useAppDispatch();
     const { mode } = useAppSelector(selectAppSetting);
 
+    console.log(props);
     const onToggleTheme = () => {
         dispatch(toggleMode(mode === 'light' ? 'dark' : 'light'));
     };
     return (
-        <IconButton
-            color="inherit"
-            onClick={onToggleTheme}
-        >
-            {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
-        </IconButton>
+        <button onClick={onToggleTheme}>
+            {mode === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+        </button>
     );
 };
 
